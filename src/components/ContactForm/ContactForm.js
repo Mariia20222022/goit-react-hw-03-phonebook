@@ -20,8 +20,17 @@ class ContactForm extends Component {
 
     const { name, number } = this.state;
 
-    const existingNames = this.props.contacts.map(contact => contact.name);
-    if (existingNames.includes(name)) {
+    // const existingNames = this.props.contacts.map(contact => contact.name);
+    // if (existingNames.includes(name)) {
+    //   alert(`${name} is already in contacts`);
+    //   return;
+    // }
+    const existingNames = this.props.contacts.map(contact =>
+      contact.name.toLowerCase()
+    );
+    if (
+      existingNames.some(existingName => existingName === name.toLowerCase())
+    ) {
       alert(`${name} is already in contacts`);
       return;
     }
@@ -91,7 +100,7 @@ ContactForm.propTypes = {
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     }).isRequired
-  ),
+  ).isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
-
 export default ContactForm;
